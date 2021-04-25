@@ -1,0 +1,4 @@
+influxdb-client==1.16.0
+python-dotenv==0.17.0
+requests==2.25.1
+nose2==0.10.0
