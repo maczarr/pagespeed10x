@@ -1,0 +1,47 @@
+version: "3.0"
+services:
+  pagespeed10x:
+    build: .
+    container_name: pagespeed10x
+    restart: on-failure
+    volumes:
+      - ./storage/sqlite:/code/storage/sqlite
+    depends_on:
+      - influxdb
+  influxdb:
+    image: influxdb:2.0.4
+    container_name: influxdb
+    restart: on-failure
+    ports:
+      - ${INFLUXDB_PORT}:8086
+    volumes:
+      - ./storage/influxdb/data:/var/lib/influxdb2
+      - ./storage/influxdb/config:/etc/influxdb2
+    environment:
+      - DOCKER_INFLUXDB_INIT_MODE=setup
+      - DOCKER_INFLUXDB_INIT_USERNAME=${INFLUXDB_USER}
+      - DOCKER_INFLUXDB_INIT_PASSWORD=${INFLUXDB_PASSWORD}
+      - DOCKER_INFLUXDB_INIT_ORG=${INFLUXDB_ORG}
+      - DOCKER_INFLUXDB_INIT_BUCKET=${INFLUXDB_BUCKET}
+      - DOCKER_INFLUXDB_INIT_ADMIN_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_REPORTING_DISABLED=true
+      - INFLUXDB_HTTP_FLUX_ENABLED=true
+  grafana:
+    image: grafana/grafana:7.5.4
+    container_name: grafana
+    ports:
+      - ${GRAFANA_PORT}:3000
+    volumes:
+      - ./storage/grafana:/var/lib/grafana
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+      - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
+    restart: on-failure
+    depends_on:
+      - influxdb
+    user: ${HOST_UID}
+    environment:
+      - INFLUXDB_ORG=${INFLUXDB_ORG}
+      - INFLUXDB_BUCKET=${INFLUXDB_BUCKET}
+      - INFLUXDB_TOKEN=${INFLUXDB_TOKEN}
+      - INFLUXDB_PORT=${INFLUXDB_PORT}
+      - INFLUXDB_HOST=${INFLUXDB_HOST}

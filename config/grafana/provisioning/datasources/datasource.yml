@@ -1,0 +1,22 @@
+apiVersion: 1
+
+delete_datasources:
+  - name: InfluxDB
+    org_id: 1
+
+datasources:
+- name: InfluxDB
+  type: influxdb
+  version: 2
+  isDefault: true
+  orgId: 1
+  access: proxy
+  url: ${INFLUXDB_HOST}:${INFLUXDB_PORT}
+  basicAuth: false
+  jsonData:
+    defaultBucket: ${INFLUXDB_BUCKET}
+    organization: ${INFLUXDB_ORG}
+    version: Flux
+  secureJsonData:
+    token: ${INFLUXDB_TOKEN}
+  editable: true
