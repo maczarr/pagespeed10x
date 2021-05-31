@@ -45,10 +45,12 @@ def get_meta_data(testResult):
   }
 
 def get_crux_data(testResult):
-  if (not 'metrics' in testResult['loadingExperience']):
+  crux_section = testResult['loadingExperience']
+
+  if (not 'metrics' in crux_section or 'origin_fallback' in crux_section):
     return {}
 
-  cruxResults = testResult['loadingExperience']['metrics']
+  cruxResults = crux_section['metrics']
 
   return {
     "crux_fcp" : _get_crux_fcp(cruxResults),
