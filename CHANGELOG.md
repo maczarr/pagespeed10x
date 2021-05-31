@@ -2,7 +2,7 @@
 
 This project sticks to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
-## 2021-05-31 - unreleased
+## 2021-05-31 - 1.0.1
 
 - Fix: If CrUX data isn't from the actual URL but only provided from the
   origin (`origin_fallback` is true) it will be treated as if there is no
