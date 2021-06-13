@@ -45,6 +45,7 @@ def get_meta_data(testResult):
   }
 
 def get_crux_data(testResult):
+  results = {}
   crux_section = testResult['loadingExperience']
 
   if (not 'metrics' in crux_section or 'origin_fallback' in crux_section):
@@ -52,28 +53,51 @@ def get_crux_data(testResult):
 
   cruxResults = crux_section['metrics']
 
-  return {
-    "crux_fcp" : _get_crux_fcp(cruxResults),
-    "crux_fcp_category" : _get_crux_fcp_category(cruxResults),
-    "crux_fcp_proportions_good" : _get_crux_fcp_proportions_good(cruxResults),
-    "crux_fcp_proportions_average" : _get_crux_fcp_proportions_average(cruxResults),
-    "crux_fcp_proportions_bad" : _get_crux_fcp_proportions_bad(cruxResults),
-    "crux_lcp" : _get_crux_lcp(cruxResults),
-    "crux_lcp_category" : _get_crux_lcp_category(cruxResults),
-    "crux_lcp_proportions_good" : _get_crux_lcp_proportions_good(cruxResults),
-    "crux_lcp_proportions_average" : _get_crux_lcp_proportions_average(cruxResults),
-    "crux_lcp_proportions_bad" : _get_crux_lcp_proportions_bad(cruxResults),
-    "crux_fid" : _get_crux_fid(cruxResults),
-    "crux_fid_category" : _get_crux_fid_category(cruxResults),
-    "crux_fid_proportions_good" : _get_crux_fid_proportions_good(cruxResults),
-    "crux_fid_proportions_average" : _get_crux_fid_proportions_average(cruxResults),
-    "crux_fid_proportions_bad" : _get_crux_fid_proportions_bad(cruxResults),
-    "crux_cls" : _get_crux_cls(cruxResults),
-    "crux_cls_category" : _get_crux_cls_category(cruxResults),
-    "crux_cls_proportions_good" : _get_crux_cls_proportions_good(cruxResults),
-    "crux_cls_proportions_average" : _get_crux_cls_proportions_average(cruxResults),
-    "crux_cls_proportions_bad" : _get_crux_cls_proportions_bad(cruxResults)
-  }
+  if ('FIRST_CONTENTFUL_PAINT_MS' in cruxResults):
+    crux_fcp = {
+      "crux_fcp" : _get_crux_fcp(cruxResults),
+      "crux_fcp_category" : _get_crux_fcp_category(cruxResults),
+      "crux_fcp_proportions_good" : _get_crux_fcp_proportions_good(cruxResults),
+      "crux_fcp_proportions_average" : _get_crux_fcp_proportions_average(cruxResults),
+      "crux_fcp_proportions_bad" : _get_crux_fcp_proportions_bad(cruxResults)
+    }
+
+    results = results | crux_fcp
+
+  if ('LARGEST_CONTENTFUL_PAINT_MS' in cruxResults):
+    crux_lcp = {
+      "crux_lcp" : _get_crux_lcp(cruxResults),
+      "crux_lcp_category" : _get_crux_lcp_category(cruxResults),
+      "crux_lcp_proportions_good" : _get_crux_lcp_proportions_good(cruxResults),
+      "crux_lcp_proportions_average" : _get_crux_lcp_proportions_average(cruxResults),
+      "crux_lcp_proportions_bad" : _get_crux_lcp_proportions_bad(cruxResults),
+    }
+
+    results = results | crux_lcp
+
+  if ('FIRST_INPUT_DELAY_MS' in cruxResults):
+    crux_fid = {
+      "crux_fid" : _get_crux_fid(cruxResults),
+      "crux_fid_category" : _get_crux_fid_category(cruxResults),
+      "crux_fid_proportions_good" : _get_crux_fid_proportions_good(cruxResults),
+      "crux_fid_proportions_average" : _get_crux_fid_proportions_average(cruxResults),
+      "crux_fid_proportions_bad" : _get_crux_fid_proportions_bad(cruxResults),
+    }
+
+    results = results | crux_fid
+
+  if ('CUMULATIVE_LAYOUT_SHIFT_SCORE' in cruxResults):
+    crux_cls = {
+      "crux_cls" : _get_crux_cls(cruxResults),
+      "crux_cls_category" : _get_crux_cls_category(cruxResults),
+      "crux_cls_proportions_good" : _get_crux_cls_proportions_good(cruxResults),
+      "crux_cls_proportions_average" : _get_crux_cls_proportions_average(cruxResults),
+      "crux_cls_proportions_bad" : _get_crux_cls_proportions_bad(cruxResults)
+    }
+
+    results = results | crux_cls
+
+  return results
 
 def _get_timestamp(testResult):
   return testResult['analysisUTCTimestamp']

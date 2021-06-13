@@ -24,37 +24,41 @@ def results(metadata, labdata, cruxdata, verbose):
 
   if (len(cruxdata) > 0):
     print('CrUX-Data')
-    print('FCP: {cruxFcp:.1f} s ({cruxFcpCat}) (Good {cruxFcpGood:.0f}% / Avg {cruxFcpAvg:.0f}% / Bad {cruxFcpBad:.0f}%)'.format(
-      cruxFcp = cruxdata.get('crux_fcp') / 1000,
-      cruxFcpCat = cruxdata.get('crux_fcp_category'),
-      cruxFcpGood = cruxdata.get('crux_fcp_proportions_good') * 100,
-      cruxFcpAvg = cruxdata.get('crux_fcp_proportions_average') * 100,
-      cruxFcpBad = cruxdata.get('crux_fcp_proportions_bad') * 100
-    ))
+    if ('crux_fcp' in cruxdata):
+      print('FCP: {cruxFcp:.1f} s ({cruxFcpCat}) (Good {cruxFcpGood:.0f}% / Avg {cruxFcpAvg:.0f}% / Bad {cruxFcpBad:.0f}%)'.format(
+        cruxFcp = cruxdata.get('crux_fcp') / 1000,
+        cruxFcpCat = cruxdata.get('crux_fcp_category'),
+        cruxFcpGood = cruxdata.get('crux_fcp_proportions_good') * 100,
+        cruxFcpAvg = cruxdata.get('crux_fcp_proportions_average') * 100,
+        cruxFcpBad = cruxdata.get('crux_fcp_proportions_bad') * 100
+      ))
 
-    print('LCP: {cruxLcp:.1f} s ({cruxLcpCat}) (Good {cruxLcpGood:.0f}% / Avg {cruxLcpAvg:.0f}% / Bad {cruxLcpBad:.0f}%)'.format(
-      cruxLcp = cruxdata.get('crux_lcp') / 1000,
-      cruxLcpCat = cruxdata.get('crux_lcp_category'),
-      cruxLcpGood = cruxdata.get('crux_lcp_proportions_good') * 100,
-      cruxLcpAvg = cruxdata.get('crux_lcp_proportions_average') * 100,
-      cruxLcpBad = cruxdata.get('crux_lcp_proportions_bad') * 100
-    ))
+    if ('crux_lcp' in cruxdata):
+      print('LCP: {cruxLcp:.1f} s ({cruxLcpCat}) (Good {cruxLcpGood:.0f}% / Avg {cruxLcpAvg:.0f}% / Bad {cruxLcpBad:.0f}%)'.format(
+        cruxLcp = cruxdata.get('crux_lcp') / 1000,
+        cruxLcpCat = cruxdata.get('crux_lcp_category'),
+        cruxLcpGood = cruxdata.get('crux_lcp_proportions_good') * 100,
+        cruxLcpAvg = cruxdata.get('crux_lcp_proportions_average') * 100,
+        cruxLcpBad = cruxdata.get('crux_lcp_proportions_bad') * 100
+      ))
 
-    print('FID: {cruxFid} ms ({cruxFidCat}) (Good {cruxFidGood:.0f}% / Avg {cruxFidAvg:.0f}% / Bad {cruxFidBad:.0f}%)'.format(
-      cruxFid = cruxdata.get('crux_fid'),
-      cruxFidCat = cruxdata.get('crux_fid_category'),
-      cruxFidGood = cruxdata.get('crux_fid_proportions_good') * 100,
-      cruxFidAvg = cruxdata.get('crux_fid_proportions_average') * 100,
-      cruxFidBad = cruxdata.get('crux_fid_proportions_bad') * 100
-    ))
+    if ('crux_fid' in cruxdata):
+      print('FID: {cruxFid} ms ({cruxFidCat}) (Good {cruxFidGood:.0f}% / Avg {cruxFidAvg:.0f}% / Bad {cruxFidBad:.0f}%)'.format(
+        cruxFid = cruxdata.get('crux_fid'),
+        cruxFidCat = cruxdata.get('crux_fid_category'),
+        cruxFidGood = cruxdata.get('crux_fid_proportions_good') * 100,
+        cruxFidAvg = cruxdata.get('crux_fid_proportions_average') * 100,
+        cruxFidBad = cruxdata.get('crux_fid_proportions_bad') * 100
+      ))
 
-    print('CLS: {cruxCls:.3f} ({cruxClsCat}) (Good {cruxClsGood:.0f}% / Avg {cruxClsAvg:.0f}% / Bad {cruxClsBad:.0f}%)'.format(
-      cruxCls = cruxdata.get('crux_cls') / 100,
-      cruxClsCat = cruxdata.get('crux_cls_category'),
-      cruxClsGood = cruxdata.get('crux_cls_proportions_good') * 100,
-      cruxClsAvg = cruxdata.get('crux_cls_proportions_average') * 100,
-      cruxClsBad = cruxdata.get('crux_cls_proportions_bad') * 100
-    ))
+    if ('crux_cls' in cruxdata):
+      print('CLS: {cruxCls:.3f} ({cruxClsCat}) (Good {cruxClsGood:.0f}% / Avg {cruxClsAvg:.0f}% / Bad {cruxClsBad:.0f}%)'.format(
+        cruxCls = cruxdata.get('crux_cls') / 100,
+        cruxClsCat = cruxdata.get('crux_cls_category'),
+        cruxClsGood = cruxdata.get('crux_cls_proportions_good') * 100,
+        cruxClsAvg = cruxdata.get('crux_cls_proportions_average') * 100,
+        cruxClsBad = cruxdata.get('crux_cls_proportions_bad') * 100
+      ))
 
     print()
 
