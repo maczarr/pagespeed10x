@@ -4,7 +4,7 @@
 from setuptools import setup
 
 setup(name='pagespeed10x',
-    version='1.0.1',
+    version='1.0.2',
     description='Get regular PageSpeed Insights results and store or visualize them.',
     author='Hilko Holweg',
     author_email='hilko@holweg.name',
