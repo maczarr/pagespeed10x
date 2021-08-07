@@ -2,6 +2,19 @@
 
 This project sticks to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+- Updated Grafana Dashboard.
+  - Legend
+    - Legend has a more human readable format.
+    - It doesn't repeat the URL anymore, because it has already been selected in the drop down and it can be very long.
+    - Fix: The proportions on Field-Data are preconfigured to use the right Y-axis (so this known issue is gone now).
+    - On Lab-Data the average value for the choosen time range is shown.
+  - Fix: On Field-Data showing the Lighthouse version was incorrect as this data isn't collected by Lighthouse.
+  - Field-Data has now three gauges at the top showing the latest value for the core web vitals.
+  - Thresholds in Lab-Data have been adjusted to meet the current Lighthouse v8 thresholds. The dashboard will always show the mobile thresholds even if you choose "Desktop" in the drop down because – as far as I know – Grafana doesn't have a concept of "dynamic" thresholds.
+  - Updated Screenshots.
+
 ## 2021-06-13 - 1.0.2
 
 - As of June 10th 2021 any metric in crux data (loadingExperience) can be

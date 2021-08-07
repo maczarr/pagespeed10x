@@ -16,11 +16,11 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 1,
-  "iteration": 1617313007165,
+  "iteration": 1628342213290,
   "links": [],
   "panels": [
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -29,1078 +29,1453 @@
         "y": 0
       },
       "id": 20,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 11,
-            "w": 12,
-            "x": 0,
-            "y": 1
-          },
-          "hiddenSeries": false,
-          "id": 21,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.5.2",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": true,
-          "targets": [
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp_proportions_good\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp_proportions_average\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp_proportions_bad\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "D",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": [
-            {
-              "$$hashKey": "object:1171",
-              "colorMode": "ok",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 0,
-              "yaxis": "left"
-            },
-            {
-              "$$hashKey": "object:1177",
-              "colorMode": "warning",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 2.5,
-              "yaxis": "left"
-            },
-            {
-              "$$hashKey": "object:1183",
-              "colorMode": "critical",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 4,
-              "yaxis": "left"
-            }
-          ],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Largest Contentful Paint (LCP)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:1090",
-              "format": "short",
-              "label": "seconds",
-              "logBase": 1,
-              "max": "5",
-              "min": "0",
-              "show": true
-            },
-            {
-              "$$hashKey": "object:1091",
-              "decimals": null,
-              "format": "percent",
-              "label": "%",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 11,
-            "w": 12,
-            "x": 12,
-            "y": 1
-          },
-          "hiddenSeries": false,
-          "id": 22,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.5.2",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": true,
-          "targets": [
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fcp_proportions_good\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fcp_proportions_average\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fcp_proportions_bad\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "D",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": [
-            {
-              "$$hashKey": "object:1171",
-              "colorMode": "ok",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 0,
-              "yaxis": "left"
-            },
-            {
-              "$$hashKey": "object:1177",
-              "colorMode": "warning",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 2,
-              "yaxis": "left"
-            },
-            {
-              "$$hashKey": "object:1183",
-              "colorMode": "critical",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 4,
-              "yaxis": "left"
-            }
-          ],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "First Contentful Paint (FCP)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:1090",
-              "format": "short",
-              "label": "seconds",
-              "logBase": 1,
-              "max": "5",
-              "min": "0",
-              "show": true
-            },
-            {
-              "$$hashKey": "object:1091",
-              "decimals": null,
-              "format": "percent",
-              "label": "%",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 11,
-            "w": 12,
-            "x": 0,
-            "y": 12
-          },
-          "hiddenSeries": false,
-          "id": 23,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.5.2",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": true,
-          "targets": [
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid_proportions_good\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid_proportions_average\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid_proportions_bad\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "D",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": [
-            {
-              "$$hashKey": "object:1171",
-              "colorMode": "ok",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 0,
-              "yaxis": "left"
-            },
-            {
-              "$$hashKey": "object:1177",
-              "colorMode": "warning",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 100,
-              "yaxis": "left"
-            },
-            {
-              "$$hashKey": "object:1183",
-              "colorMode": "critical",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 300,
-              "yaxis": "left"
-            }
-          ],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "First Input Delay (FID)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:1090",
-              "format": "short",
-              "label": "milliseconds",
-              "logBase": 1,
-              "max": "500",
-              "min": "0",
-              "show": true
-            },
-            {
-              "$$hashKey": "object:1091",
-              "decimals": null,
-              "format": "percent",
-              "label": "%",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {},
-            "overrides": []
-          },
-          "fill": 1,
-          "fillGradient": 0,
-          "gridPos": {
-            "h": 11,
-            "w": 12,
-            "x": 12,
-            "y": 12
-          },
-          "hiddenSeries": false,
-          "id": 24,
-          "legend": {
-            "alignAsTable": true,
-            "avg": false,
-            "current": true,
-            "max": false,
-            "min": false,
-            "rightSide": false,
-            "show": true,
-            "total": false,
-            "values": true
-          },
-          "lines": true,
-          "linewidth": 2,
-          "nullPointMode": "null",
-          "options": {
-            "alertThreshold": true
-          },
-          "percentage": false,
-          "pluginVersion": "7.5.2",
-          "pointradius": 2,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "stack": false,
-          "steppedLine": true,
-          "targets": [
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:100.0)",
-              "refId": "A",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls_proportions_good\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "B",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls_proportions_average\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "C",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            },
-            {
-              "groupBy": [
-                {
-                  "params": [
-                    "$__interval"
-                  ],
-                  "type": "time"
-                },
-                {
-                  "params": [
-                    "null"
-                  ],
-                  "type": "fill"
-                }
-              ],
-              "hide": false,
-              "orderByTime": "ASC",
-              "policy": "default",
-              "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls_proportions_bad\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
-              "refId": "D",
-              "resultFormat": "time_series",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "value"
-                    ],
-                    "type": "field"
-                  },
-                  {
-                    "params": [],
-                    "type": "mean"
-                  }
-                ]
-              ],
-              "tags": []
-            }
-          ],
-          "thresholds": [
-            {
-              "$$hashKey": "object:1171",
-              "colorMode": "ok",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 0,
-              "yaxis": "left"
-            },
-            {
-              "$$hashKey": "object:1177",
-              "colorMode": "warning",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 0.1,
-              "yaxis": "left"
-            },
-            {
-              "$$hashKey": "object:1183",
-              "colorMode": "critical",
-              "fill": true,
-              "line": false,
-              "op": "gt",
-              "value": 0.25,
-              "yaxis": "left"
-            }
-          ],
-          "timeFrom": null,
-          "timeRegions": [],
-          "timeShift": null,
-          "title": "Cumulative Layout Shift (CLS)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "$$hashKey": "object:1090",
-              "format": "short",
-              "label": "",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "$$hashKey": "object:1091",
-              "decimals": null,
-              "format": "percent",
-              "label": "%",
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ],
-          "yaxis": {
-            "align": false,
-            "alignLevel": null
-          }
-        }
-      ],
+      "panels": [],
       "title": "Field-Data (CrUX)",
       "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 6,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 2.5
+              },
+              {
+                "color": "red",
+                "value": 4
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 0,
+        "y": 1
+      },
+      "id": 31,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.4",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"LCP\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Largest Contentful Paint (LCP)",
+      "type": "gauge"
+    },
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 400,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "red",
+                "value": 300
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 8,
+        "y": 1
+      },
+      "id": 32,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.4",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"FID\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "First Input Delay (FID)",
+      "type": "gauge"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 0.35,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 0.1
+              },
+              {
+                "color": "red",
+                "value": 0.25
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 8,
+        "x": 16,
+        "y": 1
+      },
+      "id": 33,
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": true,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "7.5.4",
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"CLS\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Cumulative Layout Shift (CLS)",
+      "type": "gauge"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 22,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:237",
+          "alias": "/^FCP.*$/",
+          "color": "#5794F2"
+        },
+        {
+          "$$hashKey": "object:256",
+          "alias": "/^GOOD.*$/",
+          "color": "#73BF69",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:257",
+          "alias": "/^AVERAGE.*$/",
+          "color": "#FADE2A",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:258",
+          "alias": "/^BAD.*$/",
+          "color": "#F2495C",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"FCP\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fcp_proportions_good\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"GOOD\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fcp_proportions_average\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"AVERAGE\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fcp_proportions_bad\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"BAD\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:1171",
+          "colorMode": "ok",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 0,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1177",
+          "colorMode": "warning",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 1.8,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1183",
+          "colorMode": "critical",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 3,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "First Contentful Paint (FCP)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1090",
+          "format": "short",
+          "label": "seconds",
+          "logBase": 1,
+          "max": "5",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1091",
+          "decimals": null,
+          "format": "percent",
+          "label": "%",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 9
+      },
+      "hiddenSeries": false,
+      "id": 21,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:843",
+          "alias": "/^LCP.*$/",
+          "color": "#5794F2"
+        },
+        {
+          "$$hashKey": "object:844",
+          "alias": "/^GOOD.*$/",
+          "color": "#73BF69",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:845",
+          "alias": "/^AVERAGE.*$/",
+          "color": "#FADE2A",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:846",
+          "alias": "/^BAD.*$/",
+          "color": "#F2495C",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"LCP\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp_proportions_good\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"GOOD\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp_proportions_average\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"AVERAGE\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_lcp_proportions_bad\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"BAD\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:1171",
+          "colorMode": "ok",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 0,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1177",
+          "colorMode": "warning",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 2.5,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1183",
+          "colorMode": "critical",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 4,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Largest Contentful Paint (LCP)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1090",
+          "format": "short",
+          "label": "seconds",
+          "logBase": 1,
+          "max": "5",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1091",
+          "decimals": null,
+          "format": "percent",
+          "label": "%",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 0,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:1443",
+          "alias": "/^FID.*$/",
+          "color": "#5794F2"
+        },
+        {
+          "$$hashKey": "object:1444",
+          "alias": "/^GOOD.*$/",
+          "color": "#73BF69",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:1445",
+          "alias": "/^AVERAGE.*$/",
+          "color": "#FADE2A",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:1446",
+          "alias": "/^BAD.*$/",
+          "color": "#F2495C",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"FID\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid_proportions_good\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"GOOD\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid_proportions_average\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"AVERAGE\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_fid_proportions_bad\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"BAD\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:1171",
+          "colorMode": "ok",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 0,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1177",
+          "colorMode": "warning",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 100,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1183",
+          "colorMode": "critical",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 300,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "First Input Delay (FID)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1090",
+          "format": "short",
+          "label": "milliseconds",
+          "logBase": 1,
+          "max": "500",
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1091",
+          "decimals": null,
+          "format": "percent",
+          "label": "%",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 11,
+        "w": 12,
+        "x": 12,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 24,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 2,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "7.5.4",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "$$hashKey": "object:2039",
+          "alias": "/^CLS.*$/",
+          "color": "#5794F2"
+        },
+        {
+          "$$hashKey": "object:2040",
+          "alias": "/^GOOD.*$/",
+          "color": "#73BF69",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:2041",
+          "alias": "/^AVERAGE.*$/",
+          "color": "#FADE2A",
+          "yaxis": 2
+        },
+        {
+          "$$hashKey": "object:2042",
+          "alias": "/^BAD.*$/",
+          "color": "#F2495C",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"CLS\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls_proportions_good\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"GOOD\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "B",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls_proportions_average\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"AVERAGE\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "C",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        },
+        {
+          "groupBy": [
+            {
+              "params": [
+                "$__interval"
+              ],
+              "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
+            }
+          ],
+          "hide": false,
+          "orderByTime": "ASC",
+          "policy": "default",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"crux_cls_proportions_bad\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"BAD\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
+          "refId": "D",
+          "resultFormat": "time_series",
+          "select": [
+            [
+              {
+                "params": [
+                  "value"
+                ],
+                "type": "field"
+              },
+              {
+                "params": [],
+                "type": "mean"
+              }
+            ]
+          ],
+          "tags": []
+        }
+      ],
+      "thresholds": [
+        {
+          "$$hashKey": "object:1171",
+          "colorMode": "ok",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 0,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1177",
+          "colorMode": "warning",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 0.1,
+          "yaxis": "left"
+        },
+        {
+          "$$hashKey": "object:1183",
+          "colorMode": "critical",
+          "fill": true,
+          "line": false,
+          "op": "gt",
+          "value": 0.25,
+          "yaxis": "left"
+        }
+      ],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Cumulative Layout Shift (CLS)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1090",
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1091",
+          "decimals": null,
+          "format": "percent",
+          "label": "%",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "collapsed": false,
@@ -1109,7 +1484,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 1
+        "y": 31
       },
       "id": 4,
       "panels": [],
@@ -1123,7 +1498,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "displayName": "Score",
           "mappings": [],
           "max": 100,
           "min": 0,
@@ -1155,7 +1529,7 @@
         "h": 10,
         "w": 5,
         "x": 0,
-        "y": 2
+        "y": 32
       },
       "id": 2,
       "options": {
@@ -1170,7 +1544,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "targets": [
         {
           "groupBy": [
@@ -1189,7 +1563,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"score\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"score\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"Score (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1231,20 +1605,20 @@
         "h": 10,
         "w": 19,
         "x": 5,
-        "y": 2
+        "y": 32
       },
       "hiddenSeries": false,
       "id": 6,
       "legend": {
-        "alignAsTable": false,
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
         "max": false,
         "min": false,
         "rightSide": false,
-        "show": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -1253,7 +1627,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
@@ -1279,7 +1653,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"score\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\nmultByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value * x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"score\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> multByX(x:100.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"Score (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1390,11 +1764,11 @@
               },
               {
                 "color": "yellow",
-                "value": 2
+                "value": 1.8
               },
               {
                 "color": "red",
-                "value": 4
+                "value": 3
               }
             ]
           }
@@ -1405,7 +1779,7 @@
         "h": 8,
         "w": 4,
         "x": 0,
-        "y": 12
+        "y": 42
       },
       "id": 27,
       "options": {
@@ -1420,7 +1794,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "targets": [
         {
           "groupBy": [
@@ -1439,7 +1813,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"fcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"fcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"FCP (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1498,7 +1872,7 @@
         "h": 8,
         "w": 4,
         "x": 4,
-        "y": 12
+        "y": 42
       },
       "id": 25,
       "options": {
@@ -1513,7 +1887,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "targets": [
         {
           "groupBy": [
@@ -1532,7 +1906,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"lcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"lcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"LCP (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1591,7 +1965,7 @@
         "h": 8,
         "w": 4,
         "x": 8,
-        "y": 12
+        "y": 42
       },
       "id": 26,
       "options": {
@@ -1606,7 +1980,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "targets": [
         {
           "groupBy": [
@@ -1625,7 +1999,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"cls\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:10.0)\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"cls\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:10.0)\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"CLS (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1669,7 +2043,7 @@
               },
               {
                 "color": "yellow",
-                "value": 4.3
+                "value": 3.4
               },
               {
                 "color": "red",
@@ -1684,7 +2058,7 @@
         "h": 8,
         "w": 4,
         "x": 12,
-        "y": 12
+        "y": 42
       },
       "id": 28,
       "options": {
@@ -1699,7 +2073,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "targets": [
         {
           "groupBy": [
@@ -1718,7 +2092,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"speed_index\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"speed_index\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"Speed Index (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1777,7 +2151,7 @@
         "h": 8,
         "w": 4,
         "x": 16,
-        "y": 12
+        "y": 42
       },
       "id": 29,
       "options": {
@@ -1792,7 +2166,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "targets": [
         {
           "groupBy": [
@@ -1811,7 +2185,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"tti\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"tti\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"TTI (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1855,7 +2229,7 @@
               },
               {
                 "color": "yellow",
-                "value": 300
+                "value": 200
               },
               {
                 "color": "red",
@@ -1870,7 +2244,7 @@
         "h": 8,
         "w": 4,
         "x": 20,
-        "y": 12
+        "y": 42
       },
       "id": 30,
       "options": {
@@ -1885,7 +2259,7 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "targets": [
         {
           "groupBy": [
@@ -1904,7 +2278,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"tbt\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"tbt\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"TBT (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -1945,18 +2319,19 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 20
+        "y": 50
       },
       "hiddenSeries": false,
       "id": 10,
       "legend": {
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -1965,7 +2340,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
@@ -1991,7 +2366,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"fcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"fcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"FCP (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -2098,18 +2473,19 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 20
+        "y": 50
       },
       "hiddenSeries": false,
       "id": 8,
       "legend": {
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -2118,7 +2494,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
@@ -2144,7 +2520,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"lcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"lcp\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n\nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"LCP (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -2251,18 +2627,19 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 28
+        "y": 58
       },
       "hiddenSeries": false,
       "id": 12,
       "legend": {
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -2271,7 +2648,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
@@ -2297,7 +2674,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"cls\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:10.0)\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"cls\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:10.0)\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"CLS (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -2404,18 +2781,19 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 28
+        "y": 58
       },
       "hiddenSeries": false,
       "id": 14,
       "legend": {
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -2424,7 +2802,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
@@ -2450,7 +2828,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"speed_index\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"speed_index\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"Speed Index (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -2486,7 +2864,7 @@
           "fill": true,
           "line": false,
           "op": "gt",
-          "value": 4.3,
+          "value": 3.4,
           "yaxis": "left"
         },
         {
@@ -2557,18 +2935,19 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 36
+        "y": 66
       },
       "hiddenSeries": false,
       "id": 16,
       "legend": {
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -2577,7 +2956,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
@@ -2603,7 +2982,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nfrom(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"tti\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\n// Function definition\ndivByX = (tables=<-, x) =>\n  tables\n    |> map(fn: (r) => ({ r with _value: r._value / x}))\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"tti\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  |> divByX(x:1000.0)\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"TTI (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -2710,18 +3089,19 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 36
+        "y": 66
       },
       "hiddenSeries": false,
       "id": 18,
       "legend": {
-        "avg": false,
+        "alignAsTable": true,
+        "avg": true,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
-        "values": false
+        "values": true
       },
       "lines": true,
       "linewidth": 1,
@@ -2730,7 +3110,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.5.2",
+      "pluginVersion": "7.5.4",
       "pointradius": 2,
       "points": true,
       "renderer": "flot",
@@ -2756,7 +3136,7 @@
           ],
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"tbt\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  ",
+          "query": "FinalOutput = [\"_field\",\"_time\",\"_value\"]\n\nRawSeries = from(bucket:\"performance\")\n  |> range(start: ${__from:date:iso}, stop: ${__to:date:iso})\n  |> filter(fn:(r) =>\n    r._measurement == \"lighthouse_performance_data\" and\n    r._field == \"tbt\" and\n    r.url == ${testpages:doublequote} and\n    r.strategy == ${strategy:doublequote}\n  )\n  \nNamedSeries = RawSeries\n  |> map(fn: (r) => ({_time:r._time, _value:r._value, _field: \"TBT (Lighthouse v\"+r.lighthouse_version+\")\"}))\n  |> keep(columns:FinalOutput)\n\nNamedSeries |> yield()",
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -2792,7 +3172,7 @@
           "fill": true,
           "line": false,
           "op": "gt",
-          "value": 300,
+          "value": 200,
           "yaxis": "left"
         },
         {
@@ -2848,7 +3228,7 @@
       }
     }
   ],
-  "refresh": false,
+  "refresh": "5m",
   "schemaVersion": 27,
   "style": "dark",
   "tags": [],
@@ -2916,5 +3296,5 @@
   "timezone": "",
   "title": "Pagespeed Dashboard",
   "uid": "S50KxnlGk",
-  "version": 38
+  "version": 29
 }

@@ -4,7 +4,7 @@ Get regular PageSpeed Insights results and store or visualize them.
 
 | Grafana Dashboard: Row for Lab-Data | Grafana Dashboard: Row for Field-Data (CrUX) |
 | --- | --- |
-| [![Screenshot from Grafana showing the graphs for Lab-Data](screenshot1.jpeg)](screenshot1.jpeg) | [![Screenshot from Grafana showing the graphs for Field-Data](screenshot2.png)](screenshot2.png) |
+| [![Screenshot from Grafana showing the graphs for Lab-Data](screenshot1.png)](screenshot1.jpeg) | [![Screenshot from Grafana showing the graphs for Field-Data](screenshot2.png)](screenshot2.png) |
 
 ## Requirements
 
@@ -116,13 +116,6 @@ Grafana is pre-configured with a datasource (localhost:3000/datasources) for the
 ### Thresholds
 
 The thresholds used in the Grafana dashboard are taken from the corresponding web.dev pages for the metrics. Of course they can simply be adjusted within Grafana (the dashboard is configured as `editable`).
-
-### Known Issues
-
-The "Field-Data (CrUX)" row has a little issue. You have to configure the proportions to use the right-y axis. I was not able to pre-configure this.
-For doing so click on the color in the legend beneath the graph. Choose the "Y-Axis" tab and activate the switch on "Use right y-axis". Repeat for all proportions.
-
-[![Screenshot from Grafana showing how to switch a graph to the right y-axis](screenshot3.png)](screenshot3.png)
 
 ## Tests
 
