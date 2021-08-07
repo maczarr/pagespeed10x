@@ -2,7 +2,7 @@
 
 This project sticks to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 2021-08-07 - 1.1.0
 
 - Updated Grafana Dashboard.
   - Legend
