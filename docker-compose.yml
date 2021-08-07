@@ -9,7 +9,7 @@ services:
     depends_on:
       - influxdb
   influxdb:
-    image: influxdb:2.0.4
+    image: influxdb:2.0.7
     container_name: influxdb
     restart: on-failure
     ports:
