@@ -27,7 +27,7 @@ services:
       - INFLUXDB_REPORTING_DISABLED=true
       - INFLUXDB_HTTP_FLUX_ENABLED=true
   grafana:
-    image: grafana/grafana:7.5.4
+    image: grafana/grafana:8.1.0
     container_name: grafana
     ports:
       - ${GRAFANA_PORT}:3000
