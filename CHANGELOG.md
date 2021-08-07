@@ -2,7 +2,7 @@
 
 This project sticks to [Semantic Versioning 2.0.0](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 2021-08-07 - 1.2.0
 
 - Upgrade Influxdb-Docker-Container from 2.0.4 to 2.0.7
 - Upgrade Grafana-Docker-Container from 7.5.4 to 8.1.0
